@@ -1,5 +1,5 @@
 import { View, type ViewProps } from 'react-native';
-
+// Padrões de repetição ou seja , laços de repetição de estilo
 import { useThemeColor } from '@/hooks/use-theme-color';
 
 export type ThemedViewProps = ViewProps & {
