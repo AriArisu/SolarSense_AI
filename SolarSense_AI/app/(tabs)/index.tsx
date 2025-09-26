@@ -6,6 +6,7 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Link } from 'expo-router';
 import Input_text from '@/components/Input_text/Input_text';
+import ChatBotScreen from '@/components/Chatbot/chatbox';
 
 export default function HomeScreen() {
   return (
@@ -76,6 +77,8 @@ export default function HomeScreen() {
           <ThemedText type="defaultSemiBold">app-example</ThemedText>.
         </ThemedText>
       </ThemedView>
+      <ChatBotScreen>
+</ChatBotScreen>
     </ParallaxScrollView>
   );
 }
