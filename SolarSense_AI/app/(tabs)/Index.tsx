@@ -1,13 +1,16 @@
 import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';;
+import { Platform, StyleSheet, View } from 'react-native';
 import { Link } from 'expo-router';
 import ChatBotScreen from '@/components/Chatbot/chatbox';
 
 export default function HomeScreen() {
   return (
+    <View>
       <ChatBotScreen>
 </ChatBotScreen>
 
+
+  </View>
   );
 }
 
