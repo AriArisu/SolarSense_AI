@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 import { DrawerContentComponentProps } from '@react-navigation/drawer';
-import { CustomText, Container, IconMenu } from './menuitem.styles';
+import { CustomText, Container } from './menuitem.styles';
 
 
 interface MenuItemProps {
@@ -39,7 +39,6 @@ const MenuItem: React.FC<MenuItemProps> = ({
   }, [stack, routeName, onPress]);
   return (
     <Container key={routeName} isActive={IsActive} onPress={navigationToScreen}>
-      <IconMenu name={icon} size={24} color={IsActive ? '#000' : '#B0E0E6'} />
       <CustomText isActive={IsActive}>{label}</CustomText>
     </Container>
   );

@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components/native';
-import MaterialCommunityIcons from 'react-native-vector-icons/aterialCommunityIcons';
 
 interface CustomTextProps {
   isActive: boolean;
@@ -9,11 +8,6 @@ interface ContainerProps {
   isActive: boolean;
 }
 
-export const IconMenu = styled(MaterialCommunityIcons)`
-  margin-right: 35px;
-  margin-left: 16px;
-  opacity: 1;
-`;
 
 export const CustomText = styled.Text<CustomTextProps>`
   font-size: 14px;

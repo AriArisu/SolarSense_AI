@@ -8,7 +8,6 @@ import {
   TitleUser,
   Body,
   Footer,
-  Logo,
   HeaderBody,
 } from './drawercontent.style'
 
@@ -33,7 +32,6 @@ const DrawerContent = (
       <Body>
         <HeaderBody>
           <View>
-            <Logo size={50} name="account-circle" />
           </View>
           <NameUser>Ednilson</NameUser>
           <TitleUser>Desenvolvedor</TitleUser>

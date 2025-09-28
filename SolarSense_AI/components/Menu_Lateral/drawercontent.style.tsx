@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
 
 export const Container = styled.View`
   flex: 1;
@@ -29,9 +29,7 @@ export const Footer = styled.View`
   margin-bottom: 15px;
 `;
 
-export const Logo = styled(MaterialCommunityIcons)`
-  margin-top: 50px;
-`;
+
 
 export const HeaderBody = styled.View`
   margin-left: 16px;
