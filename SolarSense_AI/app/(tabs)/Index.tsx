@@ -1,34 +1,56 @@
 import { Image } from 'expo-image';
-import { Platform, StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, View, ScrollView,Text } from 'react-native';
 import { Link } from 'expo-router';
 import ChatBotScreen from '@/components/Chatbot/chatbox';
 
 export default function HomeScreen() {
   return (
-    <View>
-      <ChatBotScreen>
-</ChatBotScreen>
 
+    <View
+    style={styles.stepContainer}>
+
+    <Image 
+    style={styles.image}
+    >
+
+
+    </Image>
+
+    <Text
+    style={styles.Text}
+    >
+    Olá Seja Bem-Vindo
+     </Text>
+
+      <Text style={styles.Text}>
+    Como posso Ajudar
+     </Text>
+
+      <ChatBotScreen>
+      </ChatBotScreen>
 
   </View>
+  
   );
 }
 
 const styles = StyleSheet.create({
   titleContainer: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
     gap: 8,
   },
   stepContainer: {
+    flexDirection: 'column',
     gap: 8,
     marginBottom: 8,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  Text:{
+    alignItems: "flex-start",
+    color: "#FFFFFFFF",
+    fontFamily: "Alexandria"
   },
+  image:{
+
+  }
 });

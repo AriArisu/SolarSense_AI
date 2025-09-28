@@ -6,7 +6,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 const Botão = () => {
   return (
       <LinearGradient
-        colors={['#FE7457', '#E60013']}
+        colors={['#FE7457', '#E60013',]}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 0 }}
         style={styles.linearGradient}
@@ -22,10 +22,10 @@ const styles = StyleSheet.create({
   linearGradient: {
     height: 135,
     width: 500,
-    borderRadius: 20, // <-- Outer Border Radius
+    borderRadius: 17, // <-- Outer Border Radius
   },
   innerContainer: {
-    borderRadius: 15, // <-- Inner Border Radius
+    borderRadius: 10, // <-- Inner Border Radius
     flex: 1,
     margin: 5, // <-- Border Width
     backgroundColor: '#fff',

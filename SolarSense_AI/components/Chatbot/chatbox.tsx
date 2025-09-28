@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, Text, StyleSheet } from 'react-native';
+import { View, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import axios from 'axios';
 
 const ChatBotScreen: React.FC = () => {
@@ -27,16 +27,50 @@ const ChatBotScreen: React.FC = () => {
         value={input}
         onChangeText={setInput}
       />
-      <Button title="Enviar" onPress={sendToN8N} />
-      <Text style={styles.reply}>Resposta do bot: {response}</Text>
+     <TouchableOpacity 
+    style={styles.button} 
+    onPress={sendToN8N}
+>
+    <Text style={styles.buttonText}>Enviar</Text>
+</TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, justifyContent: 'center' },
-  input: { borderWidth: 1, borderColor: '#ccc', padding: 10, marginBottom: 10 },
-  reply: { marginTop: 20, fontSize: 16 },
+  container: { 
+    padding: 20, 
+    flexDirection: "row", 
+    justifyContent: 'center', 
+    alignItems: 'center'
+  },
+  input: { 
+    borderWidth: 1, 
+    borderColor: '#ccc', 
+    padding: 10, 
+    marginBottom: 10, 
+    backgroundColor: "#FDFDFE", 
+    width: 700,
+    textAlign: 'center', 
+  },
+  reply: { 
+    marginTop: 20, 
+    fontSize: 16, 
+    color: "#ffffffff" 
+  },
+  button: { 
+    backgroundColor: "#E60013", 
+    borderRadius: 10, 
+    width: 75, 
+    height: 40,
+    justifyContent: 'center', // Centraliza verticalmente
+    alignItems: 'center', // Centraliza horizontalmente
+  },
+  buttonText: { 
+    color: '#ffffff', // Adicionei cor para o texto ser visível
+    fontFamily: 'Alexandria',
+    textAlign: 'center', // Garante centralização do texto
+  }
 });
 
 export default ChatBotScreen;
