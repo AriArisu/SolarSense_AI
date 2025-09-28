@@ -1,1 +1,0 @@
-// https://reactnavigation.org/docs/drawer-navigator/?config=dynamic
