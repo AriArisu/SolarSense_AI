@@ -2,19 +2,23 @@ import { Image } from 'expo-image';
 import { Platform, StyleSheet, View, ScrollView,Text } from 'react-native';
 import { Link } from 'expo-router';
 import ChatBotScreen from '@/components/Chatbot/chatbox';
+import DrawerContent from '@/components/Menu_Lateral/drawercontent.index';
 
 export default function HomeScreen() {
   return (
+
+
+
 
     <View
     style={styles.stepContainer}>
 
     <Image 
-    style={styles.image}
+ style={styles.image}
     >
 
-
     </Image>
+
 
     <Text
     style={styles.Text}
@@ -26,8 +30,8 @@ export default function HomeScreen() {
     Como posso Ajudar
      </Text>
 
-      <ChatBotScreen>
-      </ChatBotScreen>
+
+  <ChatBotScreen />
 
   </View>
   
