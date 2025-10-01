@@ -1,6 +1,6 @@
 import { Image } from 'expo-image';
-import { Platform, StyleSheet,View } from 'react-native';
-//Import de componentes
+import { Platform, StyleSheet, View } from 'react-native';
+// Import de componentes
 import { Collapsible } from '@/components/ui/collapsible';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
@@ -10,20 +10,26 @@ import { Fonts } from '@/constants/theme';
 
 export default function TabTwoScreen() {
   return (
+    <View style={styles.container}>
+      <ThemedText>
+        Olá      
+      </ThemedText>
 
-    <View>
+<Botão style={styles.margem} title="Botão 1"/>
 
-    <ThemedText>
-      Ola      
-    </ThemedText>
+<Botão style={styles.margem} title="Botão 2"/>
 
-    <Botão></Botão>
-
-</View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 5,
+    justifyContent: 'center', 
+    alignItems: 'center',     
+  },
   headerImage: {
     color: '#1a0808ff',
     bottom: -90,
@@ -31,7 +37,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
   titleContainer: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     gap: 8,
   },
+  margem:{
+    padding: 10
+  }
 });

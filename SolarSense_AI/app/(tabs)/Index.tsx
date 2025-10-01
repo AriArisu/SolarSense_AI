@@ -22,7 +22,6 @@ export default function HomeScreen() {
       <View style={styles.stepContainer}>
         <Image 
           style={styles.image}
-          source={require('@/assets/images/icon.png')}
         />
 
         <Text style={styles.text}>
@@ -51,7 +50,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   text: {
-    color: "#FFFFFF",
+    color: "#000000ff",
     fontFamily: "Alexandria",
     fontSize: 16,
     marginBottom: 8, 

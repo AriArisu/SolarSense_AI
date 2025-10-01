@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import MenuIcon from 'SolarSense_AI/assets/images/menu-symbol-of-three-parallel-lines.svg';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export const Container = styled.View`
   flex-direction: row;
@@ -11,6 +11,6 @@ export const Title = styled.Text`
   margin-left: 35%;
 `;
 
-export const Icon = styled(MenuIcon)`
+export const Icon = styled(MaterialCommunityIcons)`
   margin-left: 10px;
 `;
