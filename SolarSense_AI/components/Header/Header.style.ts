@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import MenuIcon from '@/assets/images/menu-symbol-of-three-parallel-lines.svg';
+import MenuIcon from 'SolarSense_AI/assets/images/menu-symbol-of-three-parallel-lines.svg';
 
 export const Container = styled.View`
   flex-direction: row;

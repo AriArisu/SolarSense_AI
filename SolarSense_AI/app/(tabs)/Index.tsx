@@ -1,11 +1,16 @@
 import { Image } from 'expo-image';
 import { StyleSheet, View, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { DrawerNavigationProp } from '@react-navigation/drawer';
+
 import ChatBotScreen from '@/components/Chatbot/chatbox';
 import Header from '@/components/Header/header';
+import { RootDrawerParamList } from '@/components/Menu_Lateral/index.routes';
+
+type HomeScreenNavigationProp = DrawerNavigationProp<RootDrawerParamList, 'Home'>;
 
 export default function HomeScreen() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<HomeScreenNavigationProp>();
 
   return (
     <View style={styles.container}>
