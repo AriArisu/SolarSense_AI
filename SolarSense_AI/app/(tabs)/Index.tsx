@@ -1,60 +1,60 @@
 import { Image } from 'expo-image';
-import { Platform, StyleSheet, View, ScrollView,Text } from 'react-native';
-import { Link } from 'expo-router';
+import { StyleSheet, View, Text } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import ChatBotScreen from '@/components/Chatbot/chatbox';
-import DrawerContent from '@/components/Menu_Lateral/drawercontent.index';
+import Header from '@/components/Header/header';
 
 export default function HomeScreen() {
+  const navigation = useNavigation();
+
   return (
+    <View style={styles.container}>
+      <Header 
+        title="Home" 
+        onPress={() => navigation.openDrawer()} 
+      />
 
+      <View style={styles.stepContainer}>
+        <Image 
+          style={styles.image}
+          source={require('@/assets/images/icon.png')}
+        />
 
+        <Text style={styles.text}>
+          Olá Seja Bem-Vindo
+        </Text>
 
+        <Text style={styles.text}>
+          Como posso Ajudar
+        </Text>
 
-    <View
-    style={styles.stepContainer}>
-
-    <Image 
- style={styles.image}
-    >
-
-    </Image>
-
-
-    <Text
-    style={styles.Text}
-    >
-    Olá Seja Bem-Vindo
-     </Text>
-
-      <Text style={styles.Text}>
-    Como posso Ajudar
-     </Text>
-
-
-  <ChatBotScreen />
-
-  </View>
-  
+        <ChatBotScreen />
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    gap: 8,
+  container: {
+    flex: 1,
   },
   stepContainer: {
+    flex: 1,
     flexDirection: 'column',
     gap: 8,
     marginBottom: 8,
+    padding: 16,
   },
-  Text:{
-    alignItems: "flex-start",
-    color: "#FFFFFFFF",
-    fontFamily: "Alexandria"
+  text: {
+    color: "#FFFFFF",
+    fontFamily: "Alexandria",
+    fontSize: 16,
+    marginBottom: 8, 
   },
-  image:{
-
+  image: {
+    width: 100,
+    height: 100,
+    alignSelf: 'center', 
+    marginBottom: 16, 
   }
 });
