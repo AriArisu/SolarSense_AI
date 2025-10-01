@@ -3,6 +3,11 @@ import { TouchableOpacity, Text, StyleSheet, View, ViewStyle } from 'react-nativ
 import { LinearGradient } from 'expo-linear-gradient';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
+import { Dimensions } from 'react-native';
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+
 
 interface BotãoProps {
   style?: ViewStyle;
