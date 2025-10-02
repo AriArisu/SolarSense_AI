@@ -1,8 +1,8 @@
 
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import HomeScreen from '@/app/(tabs)/Index';
-import TabTwoScreen from '@/app/(tabs)/Dashbord';
+import Home from '@/app/Index';
+import Dashbord from '@/app/Dashbord';
 import DrawerContent from './drawercontent.index';
 
 export type RootDrawerParamList = {
@@ -19,9 +19,10 @@ const DrawerNavigation: React.FC = () => {
         headerShown: false,
       }}
       drawerContent={props => <DrawerContent {...props} />}
+      
     >
-      <Drawer.Screen name="Home" component={HomeScreen} />
-      <Drawer.Screen name="About" component={TabTwoScreen} />
+      <Drawer.Screen name="Home" component={Home} />
+      <Drawer.Screen name="About" component={Dashbord} />
     </Drawer.Navigator>
   );
 };

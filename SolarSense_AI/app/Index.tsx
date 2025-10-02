@@ -1,28 +1,17 @@
+import React from 'react';
 import { Image } from 'expo-image';
 import { StyleSheet, View, Text } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { DrawerNavigationProp } from '@react-navigation/drawer';
-
 import ChatBotScreen from '@/components/Chatbot/chatbox';
-import Header from '@/components/Menu_Lateral/Header/header';
-import { RootDrawerParamList } from '@/components/Menu_Lateral/index.routes';
+import Menu from '@/components/Menu_Lateral/screen-home';
 
-type HomeScreenNavigationProp = DrawerNavigationProp<RootDrawerParamList, 'Home'>;
 
-export default function HomeScreen() {
-  const navigation = useNavigation<HomeScreenNavigationProp>();
 
+const Home = () => {
   return (
+
     <View style={styles.container}>
-      <Header 
-        title="Home" 
-        onPress={() => navigation.openDrawer()} 
-      />
 
       <View style={styles.stepContainer}>
-        <Image 
-          style={styles.image}
-        />
 
         <Text style={styles.text}>
           Olá Seja Bem-Vindo
@@ -37,6 +26,8 @@ export default function HomeScreen() {
     </View>
   );
 }
+
+export default Home;
 
 const styles = StyleSheet.create({
   container: {
