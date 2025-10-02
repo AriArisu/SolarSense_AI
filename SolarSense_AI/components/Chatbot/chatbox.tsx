@@ -27,10 +27,10 @@ const ChatBotScreen: React.FC = () => {
         value={input}
         onChangeText={setInput}
       />
-     <TouchableOpacity 
+    <TouchableOpacity 
     style={styles.button} 
     onPress={sendToN8N}
->
+    >
     <Text style={styles.buttonText}>Enviar</Text>
 </TouchableOpacity>
     </View>
@@ -41,8 +41,6 @@ const styles = StyleSheet.create({
   container: { 
     padding: 20, 
     flexDirection: "row", 
-    justifyContent: 'center', 
-    alignItems: 'center'
   },
   input: { 
     borderWidth: 1, 
@@ -50,8 +48,9 @@ const styles = StyleSheet.create({
     padding: 10, 
     marginBottom: 10, 
     backgroundColor: "#FDFDFE", 
-    width: 700,
-    textAlign: 'center', 
+    width: 600,
+    textAlign: 'center',
+    borderRadius: 20,
   },
   reply: { 
     marginTop: 20, 
@@ -60,11 +59,12 @@ const styles = StyleSheet.create({
   },
   button: { 
     backgroundColor: "#E60013", 
-    borderRadius: 10, 
+    borderRadius: 20, 
     width: 75, 
     height: 40,
     justifyContent: 'center', // Centraliza verticalmente
     alignItems: 'center', // Centraliza horizontalmente
+    marginLeft: 5.
   },
   buttonText: { 
     color: '#ffffff', // Adicionei cor para o texto ser visível

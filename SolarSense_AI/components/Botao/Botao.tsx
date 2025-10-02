@@ -14,7 +14,7 @@ interface BotaoProps {
   style?: ViewStyle;
   title?: string;
   onPress?: () => void;
-  navigateTo?: keyof RootStackParamList; 
+  navigateTo?: keyof RootStackParamList;
   params?: any;
 }
 
@@ -29,7 +29,7 @@ const Botao: React.FC<BotaoProps> = ({
 
   const handlePress = () => {
     if (navigateTo) {
-      navigation.navigate(navigateTo, params); 
+      navigation.navigate(navigateTo, params);
     } else if (onPress) {
       onPress();
     }
@@ -41,7 +41,7 @@ const Botao: React.FC<BotaoProps> = ({
         colors={['#FE7457', '#E60013']}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 0 }}
-        style={styles.linearGradient}
+        style={[styles.linearGradient, style]}
       >
         <View style={styles.innerContainer}>
           <Text style={styles.buttonText}>{title}</Text>

@@ -1,20 +1,9 @@
 import { Platform, StyleSheet, View, Alert } from 'react-native';
 import { ThemedText } from '@/components/themed-text';
 import Botao from '@/components/Botao/Botao';
-import { useNavigation } from '@react-navigation/native';
-import Menu from '@/components/Menu_Lateral/screen-home';
 
 export default function Dashbord() {
-  const navigation = useNavigation();
 
-  const handleButtonPress = () => {
-    try {
-      navigation.navigate('Tomada' as never);
-    } catch (error) {
-      Alert.alert('Erro', 'Não foi possível navegar');
-      console.error('Erro de navegação:', error);
-    }
-  };
 
   return (
     <View style={styles.container}>
@@ -26,7 +15,7 @@ export default function Dashbord() {
       <Botao 
         style={styles.margem} 
         title="Geladeira" 
-        onPress={handleButtonPress}
+        navigateTo="Tomada"
       />
     </View>
   );

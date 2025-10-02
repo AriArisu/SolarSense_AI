@@ -4,7 +4,7 @@ import { Collapsible } from '@/components/ui/collapsible';
 import { ThemedText } from '@/components/themed-text';
 import React, { useState } from 'react';
 
-export default function TabTwoScreen() {
+export default function Tomada() {
   return (
     <ScrollView>
 

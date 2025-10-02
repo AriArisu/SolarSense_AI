@@ -4,7 +4,6 @@ import { HapticTab } from '@/components/haptic-tab';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
-import ScrollableFooterScreen from '@/components/Menu_chat/Menu_chat';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
