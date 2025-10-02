@@ -1,64 +1,48 @@
-import { Image } from 'expo-image';
-import { StyleSheet, View, Text } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { DrawerNavigationProp } from '@react-navigation/drawer';
-
+import React from 'react';
+import { StyleSheet, View, Text, Image } from 'react-native';
 import ChatBotScreen from '@/components/Chatbot/chatbox';
-import Header from '@/components/Menu_Lateral/Header/header';
-import { RootDrawerParamList } from '@/components/Menu_Lateral/index.routes';
+import Menu from '@/components/Menu_Lateral/screen-home';
 
-type HomeScreenNavigationProp = DrawerNavigationProp<RootDrawerParamList, 'Home'>;
 
-export default function HomeScreen() {
-  const navigation = useNavigation<HomeScreenNavigationProp>();
-
+const Home = () => {
   return (
     <View style={styles.container}>
-      <Header 
-        title="Home" 
-        onPress={() => navigation.openDrawer()} 
-      />
+      <Image/>
 
       <View style={styles.stepContainer}>
-        <Image 
-          style={styles.image}
-        />
-
-        <Text style={styles.text}>
-          Olá Seja Bem-Vindo
-        </Text>
-
-        <Text style={styles.text}>
-          Como posso Ajudar
-        </Text>
+        <Text style={styles.text}>Olá, seja bem-vindo</Text>
+        <Text style={styles.text}>Como posso ajudar?</Text>
 
         <ChatBotScreen />
       </View>
     </View>
   );
-}
+};
+
+export default Home;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  stepContainer: {
-    flex: 1,
-    flexDirection: 'column',
-    gap: 8,
-    marginBottom: 8,
+    alignItems: 'center',   // centraliza horizontalmente
+    justifyContent: 'center', // centraliza verticalmente
+    backgroundColor: '#fff',
     padding: 16,
   },
-  text: {
-    color: "#000000ff",
-    fontFamily: "Alexandria",
-    fontSize: 16,
-    marginBottom: 8, 
+  stepContainer: {
+    width: '100%',
+    alignItems: 'center',
+    marginTop: 20,
   },
-  image: {
-    width: 100,
-    height: 100,
-    alignSelf: 'center', 
-    marginBottom: 16, 
-  }
+  text: {
+    color: '#000',
+    fontSize: 45,
+    marginBottom: 8,
+    textAlign: 'center',
+  },
+  logo: {
+    width: 120,
+    height: 120,
+    marginBottom: 24,
+  },
 });

@@ -6,16 +6,17 @@ import { RootDrawerParamList } from './index.routes';
 import Header from './Header/header';
 import { Container } from './Header/Header.style';
 
+type NavigationProp = DrawerNavigationProp<RootDrawerParamList, 'Home'>;
+
 const Menu: React.FC = () => {
-  const navigation = useNavigation() as DrawerNavigationProp<
-    RootDrawerParamList,
-    'About'
-  >;
+  const navigation = useNavigation<NavigationProp>();
+
   return (
     <Container>
-      <Header title={''} onPress={function (): void {
-        throw new Error('Function not implemented.');
-      } }/>
+      <Header
+        title={''}
+        onPress={() => navigation.openDrawer()} // agora funciona
+      />
 
       <Button
         title="Open Menu Lateral"

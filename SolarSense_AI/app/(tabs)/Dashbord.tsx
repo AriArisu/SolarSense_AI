@@ -1,24 +1,33 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet, View } from 'react-native';
-// Import de componentes
-import { Collapsible } from '@/components/ui/collapsible';
+import { Platform, StyleSheet, View, Alert } from 'react-native';
 import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import Botão from '@/components/Botão';
-import { Fonts } from '@/constants/theme';
+import Botao from '@/components/Botao/Botao';
+import { useNavigation } from '@react-navigation/native';
+import Menu from '@/components/Menu_Lateral/screen-home';
 
-export default function TabTwoScreen() {
+export default function Dashbord() {
+  const navigation = useNavigation();
+
+  const handleButtonPress = () => {
+    try {
+      navigation.navigate('Tomada' as never);
+    } catch (error) {
+      Alert.alert('Erro', 'Não foi possível navegar');
+      console.error('Erro de navegação:', error);
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <ThemedText>
-        Olá      
-      </ThemedText>
 
-<Botão style={styles.margem} title="Botão 1"/>
+      
 
-<Botão style={styles.margem} title="Botão 2"/>
-
+      <ThemedText type="title">Olá</ThemedText>
+      
+      <Botao 
+        style={styles.margem} 
+        title="Geladeira" 
+        onPress={handleButtonPress}
+      />
     </View>
   );
 }
@@ -26,21 +35,14 @@ export default function TabTwoScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 5,
+    padding: 16,
     justifyContent: 'center', 
     alignItems: 'center',     
+    backgroundColor: '#f5f5f5',
   },
-  headerImage: {
-    color: '#1a0808ff',
-    bottom: -90,
-    left: -35,
-    position: 'absolute',
-  },
-  titleContainer: {
-    flexDirection: 'column',
-    gap: 8,
-  },
-  margem:{
-    padding: 10
+  margem: {
+    padding: 12,
+    marginVertical: 8,
+    width: '80%',
   }
 });
