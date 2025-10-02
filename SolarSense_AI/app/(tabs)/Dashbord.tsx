@@ -1,4 +1,4 @@
-import { Platform, StyleSheet, View, Alert } from 'react-native';
+import { Platform, StyleSheet, View, Alert, Image } from 'react-native';
 import { ThemedText } from '@/components/themed-text';
 import Botao from '@/components/Botao/Botao';
 
@@ -8,7 +8,10 @@ export default function Dashbord() {
   return (
     <View style={styles.container}>
 
-      
+        <Image
+        
+        
+        />
 
       <ThemedText type="title">Olá</ThemedText>
       

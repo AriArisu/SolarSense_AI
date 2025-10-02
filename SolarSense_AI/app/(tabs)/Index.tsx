@@ -1,12 +1,16 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
 import ChatBotScreen from '@/components/Chatbot/chatbox';
-import Menu from '@/components/Menu_Lateral/screen-home';
-
+import DrawerLayout from './_layout';
+import { Header } from '@react-navigation/elements';
 
 const Home = () => {
   return (
     <View style={styles.container}>
+      <Header title={''}>
+<DrawerLayout/>
+      </Header>
+      
       <Image/>
 
       <View style={styles.stepContainer}>

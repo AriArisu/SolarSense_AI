@@ -57,8 +57,9 @@ const styles = StyleSheet.create({
   linearGradient: {
     width: windowWidth * 0.7,
     height: windowHeight * 0.08,
-    borderRadius: 17,
+    borderRadius: 20,
     alignSelf: 'center',
+
   },
   innerContainer: {
     borderRadius: 10,
