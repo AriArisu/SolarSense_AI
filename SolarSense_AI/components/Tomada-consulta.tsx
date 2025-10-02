@@ -1,84 +1,105 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ActivityIndicator, Alert } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator, useWindowDimensions } from 'react-native';
+import PowerButton from './botão_tomada';
+
+import consumoData from '../Back-end/df_ideal.json';
 
 interface Dados {
-  id: string;
-  valor: number;
-  timestamp: string;
-  // adicione outros campos conforme seu JSON
+  eletronico: string;
+  data: string;
+  hora: string;
+  kWh: string;
+  valor: string;
+  moeda: string;
 }
 
 const MonitoramentoScreen: React.FC = () => {
+  const [index, setIndex] = useState(0);
   const [dados, setDados] = useState<Dados | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { width } = useWindowDimensions();
 
-  const fetchData = async () => {
-    try {
-      setError(null);
-      const response = await fetch('https://sua-api.com/dados/ultimo');
-      
-      if (!response.ok) {
-        throw new Error('Erro ao buscar dados');
-      }
-      
-      const jsonData: Dados = await response.json();
-      setDados(jsonData);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Erro desconhecido');
-      console.error('Erro ao buscar dados:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const isSmallScreen = width < 768;
 
   useEffect(() => {
-    // Buscar dados imediatamente ao montar o componente
-    fetchData();
+    if (consumoData && consumoData.length > 0) {
+      setDados(consumoData[0]);
+      setLoading(false);
+    } else {
+      setLoading(false);
+    }
 
-    // Configurar polling a cada 5 minutos (300000 ms)
-    const interval = setInterval(fetchData, 300000);
+    const interval = setInterval(() => {
+      setIndex((prevIndex) => {
+        const nextIndex = (prevIndex + 1) % consumoData.length;
+        setDados(consumoData[nextIndex]);
+        return nextIndex;
+      });
+    }, 20000);
 
-    // Limpar intervalo ao desmontar o componente
     return () => clearInterval(interval);
   }, []);
 
-  if (loading && !dados) {
+  if (!consumoData || consumoData.length === 0) {
     return (
       <View style={styles.container}>
-        <ActivityIndicator size="large" color="#0000ff" />
-        <Text>Carregando dados...</Text>
+        <Text style={styles.errorText}>Nenhum dado disponível</Text>
       </View>
     );
   }
 
-  if (error) {
+  if (loading) {
     return (
       <View style={styles.container}>
-        <Text style={styles.error}>Erro: {error}</Text>
+        <ActivityIndicator size="large" color="#d32828ff" />
+        <Text>Carregando dados...</Text>
       </View>
     );
   }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Monitoramento em Tempo Real</Text>
+      <View style={styles.header}>
+        <Text style={styles.title}>Monitoramento em Tempo Real</Text>
+      </View>
       
-      {dados && (
-        <View style={styles.dataContainer}>
-          <Text style={styles.label}>Valor Atual:</Text>
-          <Text style={styles.value}>{dados.valor}</Text>
-          
-          <Text style={styles.label}>Última Atualização:</Text>
-          <Text style={styles.timestamp}>
-            {new Date(dados.timestamp).toLocaleString('pt-BR')}
-          </Text>
+      <View style={[
+        styles.contentRow,
+        isSmallScreen && styles.smallContentRow
+      ]}>
+        <View style={[
+          styles.dataContainer,
+          isSmallScreen && styles.smallDataContainer
+        ]}>
+          {dados ? (
+            <>
+              <Text style={styles.label}>Eletrônico:</Text>
+              <Text style={styles.value}>{dados.eletronico}</Text>
+
+              <Text style={styles.label}>Data:</Text>
+              <Text style={styles.value}>{dados.data}</Text>
+
+              <Text style={styles.label}>Hora:</Text>
+              <Text style={styles.value}>{dados.hora}</Text>
+
+              <Text style={styles.label}>Consumo (kWh):</Text>
+              <Text style={styles.value}>{dados.kWh}</Text>
+
+              <Text style={styles.label}>Custo (R$):</Text>
+              <Text style={styles.value}>{dados.valor}</Text>
+            </>
+          ) : (
+            <Text style={styles.errorText}>Erro ao carregar dados</Text>
+          )}
         </View>
-      )}
-      
-      <Text style={styles.note}>
-        Os dados são atualizados automaticamente a cada 5 minutos
-      </Text>
+        
+        <View style={[
+          styles.powerButtonContainer,
+          isSmallScreen && styles.smallPowerButtonContainer
+        ]}>
+          <PowerButton/>
+        </View>
+      </View>
     </View>
   );
 };
@@ -86,16 +107,26 @@ const MonitoramentoScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     padding: 20,
     backgroundColor: '#f5f5f5',
+  },
+  header: {
+    marginBottom: 20,
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 20,
-    textAlign: 'center',
+    color: '#333',
+  },
+  contentRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    gap: 20,
+  },
+  smallContentRow: {
+    flexDirection: 'column',
+    gap: 15,
   },
   dataContainer: {
     backgroundColor: 'white',
@@ -106,34 +137,46 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
-    marginBottom: 20,
+    flex: 1,
+  },
+  smallDataContainer: {
+    width: '100%',
+  },
+  powerButtonContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 15,
+    // Background removido
+    borderRadius: 10,
+    // Sombras removidas
+    minWidth: 120,
+  },
+  smallPowerButtonContainer: {
+    width: '100%',
+    minWidth: 'auto',
+  },
+  powerButtonLabel: {
+    fontSize: 12,
+    color: '#666',
+    marginTop: 8,
+    textAlign: 'center',
   },
   label: {
     fontSize: 16,
     color: '#666',
     marginBottom: 5,
+    fontWeight: '500',
   },
   value: {
-    fontSize: 32,
+    fontSize: 18,
     fontWeight: 'bold',
-    color: '#2196F3',
+    color: '#da3030',
     marginBottom: 15,
   },
-  timestamp: {
-    fontSize: 14,
-    color: '#888',
-    fontStyle: 'italic',
-  },
-  error: {
-    color: 'red',
+  errorText: {
     fontSize: 16,
+    color: '#666',
     textAlign: 'center',
-  },
-  note: {
-    fontSize: 12,
-    color: '#999',
-    textAlign: 'center',
-    marginTop: 10,
   },
 });
 

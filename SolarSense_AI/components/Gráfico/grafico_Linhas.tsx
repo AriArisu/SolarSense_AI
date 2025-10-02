@@ -1,39 +1,88 @@
 import React from "react";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+import { View, Text, StyleSheet } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 
-export interface IQueryResult {
-  date: string;
-  value: number;
-}
+const data = [
+  { mes: "MAI", valor: 190 },
+  { mes: "JUN", valor: 305 },
+  { mes: "JUL", valor: 102 },
+  { mes: "AGO", valor: 89 },
+  { mes: "SET", valor: 120 },
+  { mes: "OUT", valor: 92 },
+  { mes: "NOV", valor: 0 },
+];
 
-export const LineChartComponent: React.FC<{
-  dailyOrders: IQueryResult[];
-}> = ({ dailyOrders }) => {
+const GraficoBarra: React.FC = () => {
   return (
-    <ResponsiveContainer width="100%" height="100%" aspect={500 / 300}>
-      <LineChart
-        width={500}
-        height={300}
-        data={dailyOrders}
-        margin={{
-          top: 5,
-          right: 30,
-          left: 20,
-          bottom: 5,
-        }}
-      >
-        <XAxis dataKey="date" />
-        <YAxis />
-        <Tooltip />
-        <Line type="monotone" dataKey="value" stroke="#82ca9d" />
-      </LineChart>
-    </ResponsiveContainer>
+    <View style={styles.container}>
+      <View style={styles.chart}>
+        {data.map((item, index) => (
+          <View key={index} style={styles.barContainer}>
+            {/* Valor acima */}
+            {item.valor > 0 && (
+              <Text style={styles.valueText}>{item.valor}</Text>
+            )}
+
+            {/* Barra */}
+            <LinearGradient
+              colors={["#FE7457", "#E60013"]}
+              start={{ x: 0.5, y: 0 }}
+              end={{ x: 0.5, y: 1 }}
+              style={[styles.bar, { height: item.valor }]}
+            />
+
+            {/* Mês abaixo */}
+            <Text
+              style={[
+                styles.monthText,
+                item.mes === "OUT" && { color: "#E60013", fontWeight: "600" },
+              ]}
+            >
+              {item.mes}
+            </Text>
+          </View>
+        ))}
+      </View>
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 150, 
+  },
+  chart: {
+    flexDirection: "row",
+    alignItems: "flex-end",
+    justifyContent: "space-around",
+    width: "90%",
+    height: 500,
+    paddingBottom: 20,
+  },
+  barContainer: {
+    alignItems: "center",
+    justifyContent: "flex-end",
+    flex: 1,
+  },
+  bar: {
+    width: 30,
+    borderRadius: 6,
+    marginBottom: 8,
+  },
+  valueText: {
+    fontSize: 12,
+    color: "#999",
+    marginBottom: 4,
+  },
+  monthText: {
+    fontSize: 12,
+    color: "#999",
+    marginTop: 6,
+  },
+});
+
+export default GraficoBarra;

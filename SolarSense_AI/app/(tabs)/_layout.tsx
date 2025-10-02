@@ -27,7 +27,7 @@ function CustomDrawerContent(props: any) {
             onPress={() => props.navigation.closeDrawer()}
             style={styles.closeButton}
           >
-            <IconSymbol size={24} name="xmark" color="white" />
+            <IconSymbol size={24} name="line.3.horizontal" color="white" />
           </TouchableOpacity>
         </View>
         <Text style={styles.drawerHeaderTitle}>Meu App</Text>
@@ -108,12 +108,6 @@ export default function DrawerLayout() {
         })}
       >
         <Drawer.Screen 
-          name="Index" 
-          options={{ 
-            title: 'Home',
-          }} 
-        />
-        <Drawer.Screen 
           name="Dashbord" 
           options={{ 
             title: 'Explore',
@@ -173,5 +167,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     marginLeft: -8,
+    color:'white'
   },
 });

@@ -1,4 +1,5 @@
-import { Platform, StyleSheet, View, Alert } from 'react-native';
+import React from 'react';
+import { Platform, StyleSheet, View, Alert, Image } from 'react-native';
 import { ThemedText } from '@/components/themed-text';
 import Botao from '@/components/Botao/Botao';
 import { useNavigation } from '@react-navigation/native';
@@ -17,8 +18,8 @@ export default function Dashbord() {
 
   return (
     <View style={styles.container}>
-      <ThemedText type="title">Olá</ThemedText>
-      
+    
+
       <Botao 
         style={styles.margem} 
         title="Geladeira" 
@@ -40,5 +41,10 @@ const styles = StyleSheet.create({
     padding: 12,
     marginVertical: 8,
     width: '80%',
+  },
+  logo: {
+    width: 120,
+    height: 120,
+    marginBottom: 24,
   }
 });
