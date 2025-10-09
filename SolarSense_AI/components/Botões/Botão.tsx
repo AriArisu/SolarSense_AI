@@ -62,15 +62,15 @@ export default Botão;
 
 const styles = StyleSheet.create({
   linearGradient: {
-    width: 190 * 1.5,     // 90% da largura da tela
+    width: 190 * 1.5,     
     height: 130 * 0.9,
-    borderRadius: 17,        // Outer border radius
-    alignSelf: 'center',     // centraliza horizontalmente
+    borderRadius: 17,       
+    alignSelf: 'center',     
   },
   innerContainer: {
-    borderRadius: 10,        // Inner border radius
+    borderRadius: 10,        
     flex: 1,
-    margin: 5,               // Espessura da borda
+    margin: 5,               
     backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',

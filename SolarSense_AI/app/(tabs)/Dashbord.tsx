@@ -1,5 +1,5 @@
 import { StyleSheet, View, Image } from 'react-native';
-import { ThemedText } from '@/components/themed-text';
+import { ThemedText } from '@/components/Nao_sei_se_posso_apagar/themed-text';
 import Botao from '@/components/Botao/Botao';
 
 // Importando a imagem corretamente

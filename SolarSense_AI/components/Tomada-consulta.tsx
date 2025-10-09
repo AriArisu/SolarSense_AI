@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator, useWindowDimensions } from 'react-native';
-import PowerButton from './botão_tomada';
+import PowerButton from './Botões/botão_tomada';
 
 import consumoData from '../Back-end/df_ideal.json';
 

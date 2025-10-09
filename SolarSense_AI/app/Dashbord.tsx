@@ -1,6 +1,6 @@
 import React from 'react';
 import { Platform, StyleSheet, View, Alert, Image } from 'react-native';
-import { ThemedText } from '@/components/themed-text';
+import { ThemedText } from '@/components/Nao_sei_se_posso_apagar/themed-text';
 import Botao from '@/components/Botao/Botao';
 import { useNavigation } from '@react-navigation/native';
 
