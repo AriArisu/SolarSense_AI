@@ -65,7 +65,6 @@ function CustomDrawerContent(props: any) {
   );
 }
 
-// Componente para o ícone de menu no header
 function HeaderMenuIcon({ navigation }: any) {
   const colorScheme = useColorScheme();
   const tintColor = Colors[colorScheme ?? 'light'].tint;

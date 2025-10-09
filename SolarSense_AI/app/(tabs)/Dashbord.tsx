@@ -2,13 +2,13 @@ import { StyleSheet, View, Image } from 'react-native';
 import { ThemedText } from '@/components/Nao_sei_se_posso_apagar/themed-text';
 import Botao from '@/components/Botao/Botao';
 
-// Importando a imagem corretamente
+
 const geladeiraImage = require('../../assets/77fb8ec9-253b-4daa-822f-69e993643891.png');
 
 export default function Dashbord() {
   return (
     <View style={styles.container}>
-      {/* Exibindo a imagem */}
+
       <Image
         source={geladeiraImage}
         style={styles.logo}
