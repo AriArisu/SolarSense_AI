@@ -13,8 +13,7 @@
       "bundleIdentifier": "com.beam-beam.SolarSense-AI"
     },
     "android": {
-      "adaptiveIcon": {
-      },
+      "adaptiveIcon": {},
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
       "permissions": [
@@ -46,10 +45,7 @@
         "react-native-ble-plx",
         {
           "isBackgroundEnabled": true,
-          "modes": [
-            "peripheral",
-            "central"
-          ],
+          "modes": ["peripheral", "central"],
           "bluetoothAlwaysPermission": "Allow $(PRODUCT_NAME) to connect to bluetooth devices"
         }
       ]
@@ -57,6 +53,9 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "API_URL": "https://SEU-ENDPOINT-DA-AWS.execute-api.sa-east-1.amazonaws.com"
     }
   }
 }
