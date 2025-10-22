@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
 import PowerButton from "./Botões/botão_tomada";
-import { Dados, getTomada } from "@/Back-end/Mostar_Toamda";
+import { Dados, getTomada } from "@/Back-end/Tomada_AWS/Mostar_Toamda";
 
 const MonitoramentoScreen: React.FC = () => {
   const [dados, setDados] = useState<Dados | null>(null);
   const [loading, setLoading] = useState(true);
   const [erro, setErro] = useState<string | null>(null);
 
+  
   useEffect(() => {
     async function loadData() {
       try {

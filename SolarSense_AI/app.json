@@ -55,7 +55,7 @@
       "reactCompiler": true
     },
     "extra": {
-      "API_URL": "https://SEU-ENDPOINT-DA-AWS.execute-api.sa-east-1.amazonaws.com"
+      "API_URL": "https://hdb0lyjgrk.execute-api.sa-east-1.amazonaws.com"
     }
   }
 }
