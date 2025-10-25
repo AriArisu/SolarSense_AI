@@ -1,5 +1,5 @@
-import { Drawer } from 'expo-router/drawer';
 import React from 'react';
+import { Drawer } from 'expo-router/drawer';
 import { HapticTab } from '@/components/Nao_sei_se_posso_apagar/haptic-tab';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { Colors } from '@/constants/theme';
@@ -7,8 +7,9 @@ import { useColorScheme } from '@/hooks/use-color-scheme';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import type { DrawerContentComponentProps } from '@react-navigation/drawer';
 
-function CustomDrawerContent(props: any) {
+function CustomDrawerContent(props: DrawerContentComponentProps) {
   const colorScheme = useColorScheme();
   const tintColor = Colors[colorScheme ?? 'light'].tint;
   const backgroundColor = Colors[colorScheme ?? 'light'].background;
@@ -27,14 +28,14 @@ function CustomDrawerContent(props: any) {
             onPress={() => props.navigation.closeDrawer()}
             style={styles.closeButton}
           >
-            <IconSymbol size={24} name="line.3.horizontal" color="white" />
+            <IconSymbol size={24} name="chevron.right" color="white" />
           </TouchableOpacity>
         </View>
-        <Text style={styles.drawerHeaderTitle}>Meu App</Text>
+        <Text style={styles.drawerHeaderTitle}>SolarSense AI</Text>
         <Text style={styles.drawerHeaderSubtitle}>Bem-vindo!</Text>
       </View>
 
-      {/* Restante do conteúdo do drawer... */}
+      {/* Menu Items */}
       <View style={styles.drawerSection}>
         <DrawerItem
           label="Home"
@@ -46,10 +47,10 @@ function CustomDrawerContent(props: any) {
           inactiveTintColor={textColor}
           activeBackgroundColor={colorScheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.04)'}
           style={styles.drawerItem}
-          labelStyle={styles.drawerItemLabel}
+          labelStyle={[styles.drawerItemLabel, { color: textColor }]}
         />
         <DrawerItem
-          label="Explore"
+          label="Dashboard"
           onPress={() => props.navigation.navigate('Dashbord')}
           icon={({ size }) => (
             <IconSymbol size={size} name="paperplane.fill" color={tintColor} />
@@ -58,7 +59,19 @@ function CustomDrawerContent(props: any) {
           inactiveTintColor={textColor}
           activeBackgroundColor={colorScheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.04)'}
           style={styles.drawerItem}
-          labelStyle={styles.drawerItemLabel}
+          labelStyle={[styles.drawerItemLabel, { color: textColor }]}
+        />
+        <DrawerItem
+          label="Tomada"
+          onPress={() => props.navigation.navigate('Tomada')}
+          icon={({ size }) => (
+            <IconSymbol size={size} name="paperplane.fill" color={tintColor} />
+          )}
+          activeTintColor={tintColor}
+          inactiveTintColor={textColor}
+          activeBackgroundColor={colorScheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.04)'}
+          style={styles.drawerItem}
+          labelStyle={[styles.drawerItemLabel, { color: textColor }]}
         />
       </View>
     </DrawerContentScrollView>
@@ -74,7 +87,7 @@ function HeaderMenuIcon({ navigation }: any) {
       onPress={() => navigation.toggleDrawer()}
       style={styles.menuButton}
     >
-      <IconSymbol size={28} name="line.3.horizontal" color={tintColor} />
+      <IconSymbol size={28} name="chevron.right" color={tintColor} />
     </TouchableOpacity>
   );
 }
@@ -107,9 +120,51 @@ export default function DrawerLayout() {
         })}
       >
         <Drawer.Screen 
+          name="Index" 
+          options={{ 
+            title: 'Home',
+          }} 
+        />
+        <Drawer.Screen 
           name="Dashbord" 
           options={{ 
-            title: 'Explore',
+            title: 'Dashboard',
+          }} 
+        />
+        <Drawer.Screen 
+          name="Tomada" 
+          options={{ 
+            title: 'Tomada',
+          }} 
+        />
+        <Drawer.Screen 
+          name="Agendamento" 
+          options={{ 
+            title: 'Agendamento',
+          }} 
+        />
+        <Drawer.Screen 
+          name="SEMS" 
+          options={{ 
+            title: 'SEMS',
+          }} 
+        />
+        <Drawer.Screen 
+          name="config" 
+          options={{ 
+            title: 'Configurações',
+          }} 
+        />
+        <Drawer.Screen 
+          name="Termos_de_uso" 
+          options={{ 
+            title: 'Termos de Uso',
+          }} 
+        />
+        <Drawer.Screen 
+          name="Timer" 
+          options={{ 
+            title: 'Timer',
           }} 
         />
       </Drawer>
@@ -166,6 +221,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     marginLeft: -8,
-    color:'white'
   },
 });
