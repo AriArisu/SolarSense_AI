@@ -1,7 +1,10 @@
 import axios from "axios";
 import Constants from "expo-constants";
 
-const API_URL = Constants.expoConfig?.extra?.API_URL;
+// Fallback para garantir que sempre temos uma URL
+const API_URL = Constants.expoConfig?.extra?.API_URL || 
+                "https://tvsnij4zx0.execute-api.sa-east-1.amazonaws.com/Tomada_1";
+
 console.log("API_URL carregada:", API_URL);
 
 export const api = axios.create({
@@ -9,4 +12,29 @@ export const api = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
+  timeout: 10000, // 10 segundos de timeout
 });
+
+// Interceptor para log de requisições
+api.interceptors.request.use(
+  (config) => {
+    console.log("Requisição enviada:", config.url);
+    return config;
+  },
+  (error) => {
+    console.error("Erro na requisição:", error);
+    return Promise.reject(error);
+  }
+);
+
+// Interceptor para log de respostas
+api.interceptors.response.use(
+  (response) => {
+    console.log("Resposta recebida:", response.data);
+    return response;
+  },
+  (error) => {
+    console.error("Erro na resposta:", error.response?.data || error.message);
+    return Promise.reject(error);
+  }
+);
