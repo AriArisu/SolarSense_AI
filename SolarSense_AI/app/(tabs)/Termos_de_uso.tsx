@@ -3,7 +3,7 @@ import {View, Text, ScrollView } from 'react-native';
 import Botão from '@/components/Botao/Botao';
 import Check from '@/components/CheckBox/Checkbox';
 
-function UseTerms () {
+export default function UseTerms () {
 
 return(
 
