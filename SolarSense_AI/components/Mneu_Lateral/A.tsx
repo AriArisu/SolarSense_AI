@@ -25,7 +25,7 @@ export default function Menu() {
       <Drawer.Navigator initialRouteName="Home">
         <Drawer.Screen name="Home" component={HomeScreen} />
         <Drawer.Screen name="Dashboards" component={Dashbord} />
-        <Drawer.Screen name="Tomadas Inteligentes" component={Tomada} />
+        <Drawer.Screen name="Tomadas Inteligentes" component={Tomada} /> 
         <Drawer.Screen name="SEMS" component={SEMS} />
         <Drawer.Screen name="Configurações" component={config} />
         <Drawer.Screen name="Termos de Uso" component={UseTerms/} />
