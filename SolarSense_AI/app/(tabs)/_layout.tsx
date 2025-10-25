@@ -49,6 +49,7 @@ function CustomDrawerContent(props: DrawerContentComponentProps) {
           style={styles.drawerItem}
           labelStyle={[styles.drawerItemLabel, { color: textColor }]}
         />
+        
         <DrawerItem
           label="Dashboard"
           onPress={() => props.navigation.navigate('Dashbord')}
@@ -61,8 +62,9 @@ function CustomDrawerContent(props: DrawerContentComponentProps) {
           style={styles.drawerItem}
           labelStyle={[styles.drawerItemLabel, { color: textColor }]}
         />
+        
         <DrawerItem
-          label="Tomada"
+          label="Tomadas"
           onPress={() => props.navigation.navigate('Tomada')}
           icon={({ size }) => (
             <IconSymbol size={size} name="paperplane.fill" color={tintColor} />
@@ -73,6 +75,82 @@ function CustomDrawerContent(props: DrawerContentComponentProps) {
           style={styles.drawerItem}
           labelStyle={[styles.drawerItemLabel, { color: textColor }]}
         />
+
+        <DrawerItem
+          label="SEMS"
+          onPress={() => props.navigation.navigate('SEMS')}
+          icon={({ size }) => (
+            <IconSymbol size={size} name="paperplane.fill" color={tintColor} />
+          )}
+          activeTintColor={tintColor}
+          inactiveTintColor={textColor}
+          activeBackgroundColor={colorScheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.04)'}
+          style={styles.drawerItem}
+          labelStyle={[styles.drawerItemLabel, { color: textColor }]}
+        />
+
+        <DrawerItem
+          label="Configurações"
+          onPress={() => props.navigation.navigate('config')}
+          icon={({ size }) => (
+            <IconSymbol size={size} name="chevron.left.forwardslash.chevron.right" color={tintColor} />
+          )}
+          activeTintColor={tintColor}
+          inactiveTintColor={textColor}
+          activeBackgroundColor={colorScheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.04)'}
+          style={styles.drawerItem}
+          labelStyle={[styles.drawerItemLabel, { color: textColor }]}
+        />
+
+        <DrawerItem
+          label="Termos de Uso"
+          onPress={() => props.navigation.navigate('Termos_de_uso')}
+          icon={({ size }) => (
+            <IconSymbol size={size} name="paperplane.fill" color={tintColor} />
+          )}
+          activeTintColor={tintColor}
+          inactiveTintColor={textColor}
+          activeBackgroundColor={colorScheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.04)'}
+          style={styles.drawerItem}
+          labelStyle={[styles.drawerItemLabel, { color: textColor }]}
+        />
+
+        {/* Divisor */}
+        <View style={styles.divider} />
+
+        {/* Itens secundários (escondidos por padrão) */}
+        <DrawerItem
+          label="Agendamento"
+          onPress={() => props.navigation.navigate('Agendamento')}
+          icon={({ size }) => (
+            <IconSymbol size={size} name="paperplane.fill" color={tintColor} />
+          )}
+          activeTintColor={tintColor}
+          inactiveTintColor={textColor}
+          activeBackgroundColor={colorScheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.04)'}
+          style={styles.drawerItem}
+          labelStyle={[styles.drawerItemLabel, { color: textColor }]}
+        />
+
+        <DrawerItem
+          label="Timer"
+          onPress={() => props.navigation.navigate('Timer')}
+          icon={({ size }) => (
+            <IconSymbol size={size} name="paperplane.fill" color={tintColor} />
+          )}
+          activeTintColor={tintColor}
+          inactiveTintColor={textColor}
+          activeBackgroundColor={colorScheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.04)'}
+          style={styles.drawerItem}
+          labelStyle={[styles.drawerItemLabel, { color: textColor }]}
+        />
+      </View>
+
+      {/* Footer */}
+      <View style={styles.footer}>
+        <Text style={[styles.footerText, { color: textColor }]}>
+          Versão 1.0.0
+        </Text>
       </View>
     </DrawerContentScrollView>
   );
@@ -119,52 +197,61 @@ export default function DrawerLayout() {
           swipeEdgeWidth: 100,
         })}
       >
+        {/* Todas as telas precisam estar registradas aqui */}
         <Drawer.Screen 
           name="Index" 
           options={{ 
             title: 'Home',
+            drawerLabel: 'Home',
           }} 
         />
         <Drawer.Screen 
           name="Dashbord" 
           options={{ 
             title: 'Dashboard',
+            drawerLabel: 'Dashboard',
           }} 
         />
         <Drawer.Screen 
           name="Tomada" 
           options={{ 
-            title: 'Tomada',
-          }} 
-        />
-        <Drawer.Screen 
-          name="Agendamento" 
-          options={{ 
-            title: 'Agendamento',
+            title: 'Tomadas',
+            drawerLabel: 'Tomadas',
           }} 
         />
         <Drawer.Screen 
           name="SEMS" 
           options={{ 
             title: 'SEMS',
+            drawerLabel: 'SEMS',
           }} 
         />
         <Drawer.Screen 
           name="config" 
           options={{ 
             title: 'Configurações',
+            drawerLabel: 'Configurações',
           }} 
         />
         <Drawer.Screen 
           name="Termos_de_uso" 
           options={{ 
             title: 'Termos de Uso',
+            drawerLabel: 'Termos de Uso',
+          }} 
+        />
+        <Drawer.Screen 
+          name="Agendamento" 
+          options={{ 
+            title: 'Agendamento',
+            drawerLabel: 'Agendamento',
           }} 
         />
         <Drawer.Screen 
           name="Timer" 
           options={{ 
             title: 'Timer',
+            drawerLabel: 'Timer',
           }} 
         />
       </Drawer>
@@ -210,6 +297,7 @@ const styles = StyleSheet.create({
     color: 'rgba(255,255,255,0.8)',
   },
   drawerSection: {
+    flex: 1,
     marginBottom: 24,
   },
   drawerItem: {
@@ -221,5 +309,21 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     marginLeft: -8,
+  },
+  divider: {
+    height: 1,
+    backgroundColor: '#e0e0e0',
+    marginVertical: 10,
+    marginHorizontal: 16,
+  },
+  footer: {
+    padding: 16,
+    borderTopWidth: 1,
+    borderTopColor: '#e0e0e0',
+    alignItems: 'center',
+  },
+  footerText: {
+    fontSize: 12,
+    opacity: 0.6,
   },
 });

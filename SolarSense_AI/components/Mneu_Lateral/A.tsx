@@ -1,234 +1,253 @@
 import React from 'react';
 import { Drawer } from 'expo-router/drawer';
 import { IconSymbol } from '@/components/ui/icon-symbol';
+import { Colors } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/use-color-scheme';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
-import { View, Text, TouchableOpacity, Switch, Image } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import type { DrawerContentComponentProps } from '@react-navigation/drawer';
 
-const logoImage = require('../../assets/66ccb8a8-0a1a-4674-b231-d666caebc0db.png');
+// Definir os itens do menu com seus ícones
+const menuItems = [
+  {
+    name: 'Index',
+    label: 'Home',
+    icon: 'house.fill',
+    title: 'Home',
+  },
+  {
+    name: 'Dashbord',
+    label: 'Dashboard',
+    icon: 'chart.bar.fill',
+    title: 'Dashboard',
+  },
+  {
+    name: 'Tomada',
+    label: 'Tomadas',
+    icon: 'bolt.fill',
+    title: 'Tomadas',
+  },
+  {
+    name: 'SEMS',
+    label: 'SEMS',
+    icon: 'cpu',
+    title: 'SEMS',
+  },
+  {
+    name: 'config',
+    label: 'Configurações',
+    icon: 'gear',
+    title: 'Configurações',
+  },
+  {
+    name: 'Termos_de_uso',
+    label: 'Termos de Uso',
+    icon: 'doc.text',
+    title: 'Termos de Uso',
+  },
+];
 
 function CustomDrawerContent(props: DrawerContentComponentProps) {
-  const [notificationsEnabled, setNotificationsEnabled] = React.useState(true);
-  const currentRoute = props.state.routes[props.state.index].name;
+  const colorScheme = useColorScheme();
+  const tintColor = Colors[colorScheme ?? 'light'].tint;
+  const backgroundColor = Colors[colorScheme ?? 'light'].background;
+  const textColor = Colors[colorScheme ?? 'light'].text;
+
+  const renderMenuItem = (item: typeof menuItems[0]) => (
+    <DrawerItem
+      key={item.name}
+      label={item.label}
+      onPress={() => {
+        console.log(`Navegando para: ${item.name}`);
+        props.navigation.navigate(item.name as never);
+      }}
+      icon={({ size, focused }) => (
+        <IconSymbol 
+          size={size} 
+          name={item.icon as any} 
+          color={focused ? tintColor : textColor} 
+        />
+      )}
+      activeTintColor={tintColor}
+      inactiveTintColor={textColor}
+      activeBackgroundColor={colorScheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.04)'}
+      style={styles.drawerItem}
+      labelStyle={[styles.drawerItemLabel, { color: textColor }]}
+    />
+  );
 
   return (
     <DrawerContentScrollView 
       {...props} 
-      className="flex-1 bg-[#2C2C2E]"
-      contentContainerStyle={{ flexGrow: 1 }}
+      style={[styles.drawerScrollView, { backgroundColor }]}
+      contentContainerStyle={styles.drawerContent}
     >
-      {/* Header com logo */}
-      <View className="px-6 pt-16 pb-6 flex-row items-center gap-3">
-        <Image 
-          source={logoImage} 
-          className="w-12 h-12"
-          resizeMode="contain"
-        />
-        <Text className="text-white text-xl font-bold">SolarSense AI</Text>
-      </View>
-
-      {/* Notificações com Toggle */}
-      <View className="mx-4 mb-2 px-4 py-3 flex-row items-center justify-between rounded-xl bg-[#3A3A3C]">
-        <View className="flex-row items-center gap-3">
-          <View className="w-6 h-6 items-center justify-center">
-            <IconSymbol size={20} name="house.fill" color="#FF6B5A" />
-          </View>
-          <Text className="text-[#8E8E93] text-base font-medium">Notificações</Text>
+      {/* Header */}
+      <View style={[styles.drawerHeader, { backgroundColor: tintColor }]}>
+        <View style={styles.headerTop}>
+          <TouchableOpacity 
+            onPress={() => props.navigation.closeDrawer()}
+            style={styles.closeButton}
+          >
+            <IconSymbol size={24} name="chevron.right" color="white" />
+          </TouchableOpacity>
         </View>
-        <Switch
-          value={notificationsEnabled}
-          onValueChange={setNotificationsEnabled}
-          trackColor={{ false: '#767577', true: '#FF6B5A' }}
-          thumbColor={notificationsEnabled ? '#fff' : '#f4f3f4'}
-        />
+        <Text style={styles.drawerHeaderTitle}>⚡ SolarSense AI</Text>
+        <Text style={styles.drawerHeaderSubtitle}>Gerenciamento Inteligente</Text>
       </View>
 
-      {/* Menu Items */}
-      <View className="mt-2 px-2">
-        {/* Dashboards - Active */}
-        <TouchableOpacity 
-          onPress={() => props.navigation.navigate('Dashbord')}
-          className={`flex-row items-center gap-4 px-6 py-4 mb-2 rounded-full ${
-            currentRoute === 'Dashbord' ? 'bg-gradient-to-r from-[#FF6B5A] to-[#E60013]' : ''
-          }`}
-          style={currentRoute === 'Dashbord' ? {
-            backgroundColor: '#FF6B5A',
-            shadowColor: '#FF6B5A',
-            shadowOffset: { width: 0, height: 4 },
-            shadowOpacity: 0.3,
-            shadowRadius: 8,
-            elevation: 8,
-          } : {}}
-        >
-          <View className="w-6 h-6 items-center justify-center">
-            <IconSymbol 
-              size={20} 
-              name="paperplane.fill" 
-              color={currentRoute === 'Dashbord' ? '#FFFFFF' : '#FF6B5A'} 
-            />
-          </View>
-          <Text className={`text-base font-semibold ${
-            currentRoute === 'Dashbord' ? 'text-white' : 'text-[#8E8E93]'
-          }`}>
-            Dashboards
-          </Text>
-        </TouchableOpacity>
+      {/* Menu Principal */}
+      <View style={styles.drawerSection}>
+        <Text style={[styles.sectionTitle, { color: textColor }]}>MENU PRINCIPAL</Text>
+        {menuItems.map(renderMenuItem)}
+      </View>
 
-        {/* Tomadas Inteligentes */}
-        <TouchableOpacity 
-          onPress={() => props.navigation.navigate('Tomada')}
-          className="flex-row items-center gap-4 px-6 py-4 mb-2 rounded-full"
-        >
-          <View className="w-6 h-6 items-center justify-center">
-            <IconSymbol size={20} name="paperplane.fill" color="#FF6B5A" />
-          </View>
-          <Text className="text-[#8E8E93] text-base font-semibold">
-            Tomadas Inteligentes
-          </Text>
-        </TouchableOpacity>
-
-        {/* SEMS */}
-        <TouchableOpacity 
-          onPress={() => props.navigation.navigate('SEMS')}
-          className="flex-row items-center gap-4 px-6 py-4 mb-2 rounded-full"
-        >
-          <View className="w-6 h-6 items-center justify-center">
-            <IconSymbol size={20} name="paperplane.fill" color="#FF6B5A" />
-          </View>
-          <Text className="text-[#8E8E93] text-base font-semibold">
-            SEMS
-          </Text>
-        </TouchableOpacity>
-
-        {/* Configurações */}
-        <TouchableOpacity 
-          onPress={() => props.navigation.navigate('config')}
-          className="flex-row items-center gap-4 px-6 py-4 mb-2 rounded-full"
-        >
-          <View className="w-6 h-6 items-center justify-center">
-            <IconSymbol size={20} name="chevron.left.forwardslash.chevron.right" color="#FF6B5A" />
-          </View>
-          <Text className="text-[#8E8E93] text-base font-semibold">
-            Configurações
-          </Text>
-        </TouchableOpacity>
-
-        {/* Termos de Uso */}
-        <TouchableOpacity 
-          onPress={() => props.navigation.navigate('Termos_de_uso')}
-          className="flex-row items-center gap-4 px-6 py-4 mb-2 rounded-full"
-        >
-          <View className="w-6 h-6 items-center justify-center">
-            <IconSymbol size={20} name="paperplane.fill" color="#FF6B5A" />
-          </View>
-          <Text className="text-[#8E8E93] text-base font-semibold">
-            Termos de Uso
-          </Text>
-        </TouchableOpacity>
+      {/* Footer */}
+      <View style={styles.footer}>
+        <Text style={[styles.footerText, { color: textColor }]}>
+          SolarSense AI v1.0.0
+        </Text>
+        <Text style={[styles.footerSubtext, { color: textColor }]}>
+          © 2025 Todos os direitos reservados
+        </Text>
       </View>
     </DrawerContentScrollView>
   );
 }
 
 function HeaderMenuIcon({ navigation }: any) {
+  const colorScheme = useColorScheme();
+  const tintColor = Colors[colorScheme ?? 'light'].tint;
+
   return (
     <TouchableOpacity 
       onPress={() => navigation.toggleDrawer()}
-      className="px-4 py-2"
+      style={styles.menuButton}
+      activeOpacity={0.7}
     >
-      <IconSymbol size={28} name="chevron.right" color="#FF6B5A" />
+      <IconSymbol size={28} name="chevron.right" color={tintColor} />
     </TouchableOpacity>
   );
 }
 
 export default function DrawerLayout() {
+  const colorScheme = useColorScheme();
+  const tintColor = Colors[colorScheme ?? 'light'].tint;
+  const backgroundColor = Colors[colorScheme ?? 'light'].background;
+
   return (
-    <GestureHandlerRootView className="flex-1">
+    <GestureHandlerRootView style={styles.container}>
       <Drawer
         drawerContent={(props) => <CustomDrawerContent {...props} />}
         screenOptions={({ navigation }) => ({
           headerShown: true,
           headerStyle: {
-            backgroundColor: '#2C2C2E',
+            backgroundColor: backgroundColor,
             elevation: 0,
             shadowOpacity: 0,
             borderBottomWidth: 1,
-            borderBottomColor: '#3A3A3C',
+            borderBottomColor: '#e0e0e0',
           },
-          headerTintColor: '#FF6B5A',
+          headerTintColor: tintColor,
           headerTitleStyle: {
             fontWeight: 'bold',
-            color: '#FFFFFF',
+            fontSize: 18,
           },
           headerLeft: () => <HeaderMenuIcon navigation={navigation} />,
           drawerStyle: {
-            backgroundColor: '#2C2C2E',
-            width: 280,
-            borderRightWidth: 2,
-            borderRightColor: '#1E90FF',
+            width: 300,
+            backgroundColor: backgroundColor,
           },
-          swipeEdgeWidth: 100,
+          swipeEdgeWidth: 50,
           drawerType: 'front',
         })}
       >
-        <Drawer.Screen 
-          name="Index" 
-          options={{ 
-            title: 'Home',
-            headerStyle: { backgroundColor: '#2C2C2E' },
-          }} 
-        />
-        <Drawer.Screen 
-          name="Dashbord" 
-          options={{ 
-            title: 'Dashboards',
-            headerStyle: { backgroundColor: '#2C2C2E' },
-          }} 
-        />
-        <Drawer.Screen 
-          name="Tomada" 
-          options={{ 
-            title: 'Tomadas Inteligentes',
-            headerStyle: { backgroundColor: '#2C2C2E' },
-          }} 
-        />
-        <Drawer.Screen 
-          name="SEMS" 
-          options={{ 
-            title: 'SEMS',
-            headerStyle: { backgroundColor: '#2C2C2E' },
-          }} 
-        />
-        <Drawer.Screen 
-          name="config" 
-          options={{ 
-            title: 'Configurações',
-            headerStyle: { backgroundColor: '#2C2C2E' },
-          }} 
-        />
-        <Drawer.Screen 
-          name="Termos_de_uso" 
-          options={{ 
-            title: 'Termos de Uso',
-            headerStyle: { backgroundColor: '#2C2C2E' },
-          }} 
-        />
-        <Drawer.Screen 
-          name="Agendamento" 
-          options={{ 
-            title: 'Agendamento',
-            headerStyle: { backgroundColor: '#2C2C2E' },
-          }} 
-        />
-        <Drawer.Screen 
-          name="Timer" 
-          options={{ 
-            title: 'Timer',
-            headerStyle: { backgroundColor: '#2C2C2E' },
-          }} 
-        />
       </Drawer>
     </GestureHandlerRootView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  menuButton: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+  },
+  drawerScrollView: {
+    flex: 1,
+  },
+  drawerContent: {
+    flexGrow: 1,
+  },
+  drawerHeader: {
+    padding: 24,
+    paddingTop: 60,
+    marginBottom: 10,
+  },
+  headerTop: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginBottom: 20,
+  },
+  closeButton: {
+    padding: 4,
+  },
+  drawerHeaderTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: 'white',
+    marginBottom: 4,
+  },
+  drawerHeaderSubtitle: {
+    fontSize: 14,
+    color: 'rgba(255,255,255,0.8)',
+  },
+  drawerSection: {
+    marginBottom: 10,
+  },
+  sectionTitle: {
+    fontSize: 12,
+    fontWeight: '700',
+    marginLeft: 16,
+    marginTop: 10,
+    marginBottom: 8,
+    opacity: 0.6,
+    letterSpacing: 1,
+  },
+  drawerItem: {
+    borderRadius: 12,
+    marginHorizontal: 8,
+    marginVertical: 2,
+  },
+  drawerItemLabel: {
+    fontSize: 15,
+    fontWeight: '600',
+    marginLeft: -8,
+  },
+  divider: {
+    height: 1,
+    backgroundColor: '#e0e0e0',
+    marginVertical: 10,
+    marginHorizontal: 16,
+  },
+  footer: {
+    padding: 16,
+    borderTopWidth: 1,
+    borderTopColor: '#e0e0e0',
+    alignItems: 'center',
+    marginTop: 'auto',
+  },
+  footerText: {
+    fontSize: 12,
+    fontWeight: '600',
+    opacity: 0.7,
+  },
+  footerSubtext: {
+    fontSize: 10,
+    opacity: 0.5,
+    marginTop: 4,
+  },
+});
