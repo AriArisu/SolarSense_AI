@@ -13,8 +13,3 @@ export async function getTomada (){
  const response = await api.get("/Tomada_1");
   return response.data;
 }
-
-export async function getTomadaByEletronico(Eletronico: string){
-  const response = await api.get(`/Tomada_1/${Eletronico}`);
-  return response.data;
-}

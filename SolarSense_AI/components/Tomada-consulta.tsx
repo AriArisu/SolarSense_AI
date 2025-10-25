@@ -33,7 +33,7 @@ const MonitoramentoScreen: React.FC = () => {
       <View style={styles.smallContentRow}>
         <View style={styles.smallDataContainer}>
           {loading ? (
-            <ActivityIndicator size="large" color="#ff6600" />
+            <ActivityIndicator size="large" color="#b94a00ff" />
           ) : erro ? (
             <Text style={styles.errorText}>{erro}</Text>
           ) : dados ? (
@@ -67,7 +67,7 @@ const MonitoramentoScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 20, backgroundColor: "#f5f5f5" },
   header: { marginBottom: 20 },
-  title: { fontSize: 24, fontWeight: "bold", color: "#333" },
+  title: { fontSize: 24, fontWeight: "bold", color: "black" }, // preto
   smallContentRow: { flexDirection: "column", gap: 15 },
   smallDataContainer: {
     backgroundColor: "white",
@@ -86,13 +86,14 @@ const styles = StyleSheet.create({
   },
   powerButtonLabel: {
     fontSize: 12,
-    color: "#666",
+    color: "black", // preto
     marginTop: 8,
     textAlign: "center",
   },
-  label: { fontSize: 16, color: "#666", marginBottom: 5, fontWeight: "500" },
-  value: { fontSize: 18, fontWeight: "bold", color: "#da3030", marginBottom: 15 },
-  errorText: { fontSize: 16, color: "red", textAlign: "center" },
+  label: { fontSize: 16, color: "black", marginBottom: 5, fontWeight: "500" }, // preto
+  value: { fontSize: 18, fontWeight: "bold", color: "black", marginBottom: 15 }, // preto
+  errorText: { fontSize: 16, color: "black", textAlign: "center" }, // preto
 });
+
 
 export default MonitoramentoScreen;
