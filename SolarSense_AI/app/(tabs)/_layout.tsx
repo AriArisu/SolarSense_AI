@@ -152,33 +152,6 @@ function CustomDrawerContent(props: DrawerContentComponentProps) {
           );
         })}
       </View>
-
-      {/* Divisor */}
-      <View style={[styles.divider, { 
-        backgroundColor: colorScheme === 'dark' ? '#3A3A3C' : '#E5E5EA' 
-      }]} />
-
-      {/* Seção inferior - Agendamento e Timer */}
-      <View style={styles.bottomSection}>
-        <DrawerItem
-          label="Agendamento"
-          onPress={() => props.navigation.navigate('Agendamento' as never)}
-          icon={({ size }) => (
-            <IconSymbol size={size} name="calendar" color={inactiveColor} />
-          )}
-          labelStyle={[styles.drawerItemLabel, { color: inactiveColor }]}
-          style={styles.drawerItem}
-        />
-        <DrawerItem
-          label="Timer"
-          onPress={() => props.navigation.navigate('Timer' as never)}
-          icon={({ size }) => (
-            <IconSymbol size={size} name="clock" color={inactiveColor} />
-          )}
-          labelStyle={[styles.drawerItemLabel, { color: inactiveColor }]}
-          style={styles.drawerItem}
-        />
-      </View>
     </DrawerContentScrollView>
   );
 }
@@ -274,20 +247,6 @@ export default function DrawerLayout() {
           options={{ 
             title: 'Termos de Uso',
             drawerLabel: 'Termos de Uso',
-          }} 
-        />
-        <Drawer.Screen 
-          name="Agendamento" 
-          options={{ 
-            title: 'Agendamento',
-            drawerLabel: 'Agendamento',
-          }} 
-        />
-        <Drawer.Screen 
-          name="Timer" 
-          options={{ 
-            title: 'Timer',
-            drawerLabel: 'Timer',
           }} 
         />
       </Drawer>

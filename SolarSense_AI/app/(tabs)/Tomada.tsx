@@ -5,6 +5,7 @@ import MonitoramentoScreen from '@/components/Tomada-consulta';
 import GraficoBarra from '@/components/Gráfico/grafico_Linhas';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import AddTomada from '@/components/menu_adicionar_tomada/Add_Tomada';
 
 const tomadasDisponiveis = [
   { id: '1', nome: 'GELADEIRA', icone: require('../../assets/77fb8ec9-253b-4daa-822f-69e993643891.png') },
@@ -17,6 +18,7 @@ const tomadasDisponiveis = [
 export default function Tomada() {
   const colorScheme = useColorScheme();
   const [tomadaSelecionada, setTomadaSelecionada] = useState<string | null>(null);
+  const [showAddSheet, setShowAddSheet] = useState(false);
   
   const backgroundColor = colorScheme === 'dark' ? '#1C1C1E' : '#F2F2F7';
   const cardBackground = colorScheme === 'dark' ? '#2C2C2E' : '#FFFFFF';
@@ -24,8 +26,11 @@ export default function Tomada() {
   const borderColor = '#E60013';
 
   const handleAdicionarTomada = () => {
-    console.log('Adicionar nova tomada');
-    // Implementar lógica de adicionar tomada
+    setShowAddSheet(true);
+  };
+
+  const handleCloseSheet = () => {
+    setShowAddSheet(false);
   };
 
   const handleEditarTomada = (id: string) => {
@@ -55,54 +60,62 @@ export default function Tomada() {
   }
 
   return (
-    <ScrollView style={[styles.container, { backgroundColor }]}>
-      {/* Header com ícone central e botão adicionar */}
-      <View style={styles.header}>
-        <View style={styles.iconContainer}>
-          <Image
-            source={require('../../assets/77fb8ec9-253b-4daa-822f-69e993643891.png')}
-            style={styles.headerIcon}
-            contentFit="contain"
-          />
+    <>
+      <ScrollView style={[styles.container, { backgroundColor }]}>
+        {/* Header com ícone central e botão adicionar */}
+        <View style={styles.header}>
+          <View style={styles.iconContainer}>
+            <Image
+              source={require('../../assets/77fb8ec9-253b-4daa-822f-69e993643891.png')}
+              style={styles.headerIcon}
+              contentFit="contain"
+            />
+          </View>
+
+          <TouchableOpacity 
+            style={styles.addButton}
+            onPress={handleAdicionarTomada}
+            activeOpacity={0.8}
+          >
+            <IconSymbol name="plus.circle" size={28} color="#FFFFFF" />
+          </TouchableOpacity>
         </View>
 
-        <TouchableOpacity 
-          style={styles.addButton}
-          onPress={handleAdicionarTomada}
-          activeOpacity={0.8}
-        >
-          <IconSymbol name="plus.circle" size={28} color="#FFFFFF" />
-        </TouchableOpacity>
-      </View>
+        {/* Lista de Tomadas */}
+        <View style={styles.tomadasList}>
+          {tomadasDisponiveis.map((tomada) => (
+            <TouchableOpacity
+              key={tomada.id}
+              style={[styles.tomadaCard, { 
+                backgroundColor: cardBackground,
+                borderColor: borderColor 
+              }]}
+              onPress={() => handleSelecionarTomada(tomada.id)}
+              activeOpacity={0.7}
+            >
+              <View style={styles.tomadaContent}>
+                <Text style={[styles.tomadaNome, { color: textColor }]}>
+                  {tomada.nome}
+                </Text>
+                
+                <TouchableOpacity 
+                  style={styles.editButton}
+                  onPress={() => handleEditarTomada(tomada.id)}
+                >
+                  <IconSymbol name="pencil" size={20} color={textColor} />
+                </TouchableOpacity>
+              </View>
+            </TouchableOpacity>
+          ))}
+        </View>
+      </ScrollView>
 
-      {/* Lista de Tomadas */}
-      <View style={styles.tomadasList}>
-        {tomadasDisponiveis.map((tomada) => (
-          <TouchableOpacity
-            key={tomada.id}
-            style={[styles.tomadaCard, { 
-              backgroundColor: cardBackground,
-              borderColor: borderColor 
-            }]}
-            onPress={() => handleSelecionarTomada(tomada.id)}
-            activeOpacity={0.7}
-          >
-            <View style={styles.tomadaContent}>
-              <Text style={[styles.tomadaNome, { color: textColor }]}>
-                {tomada.nome}
-              </Text>
-              
-              <TouchableOpacity 
-                style={styles.editButton}
-                onPress={() => handleEditarTomada(tomada.id)}
-              >
-                <IconSymbol name="pencil" size={20} color={textColor} />
-              </TouchableOpacity>
-            </View>
-          </TouchableOpacity>
-        ))}
-      </View>
-    </ScrollView>
+      {/* Bottom Sheet para Adicionar Tomada */}
+      <AddTomada 
+        visible={showAddSheet} 
+        onClose={handleCloseSheet}
+      />
+    </>
   );
 }
 
