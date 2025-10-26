@@ -39,17 +39,11 @@ export async function getTomada(): Promise<Dados> {
     return dadosFormatados;
     
   } catch (error: any) {
-    console.error("Erro detalhado ao buscar dados da tomada:");
-    console.error("- Mensagem:", error.message);
-    console.error("- Status:", error.response?.status);
-    console.error("- Data:", error.response?.data);
-    console.error("- Config:", error.config?.url);
-    
     // Retornar dados de exemplo em caso de erro (útil para desenvolvimento)
     const dadosExemplo: Dados = {
-      Eletronico: "Geladeira",
+      Eletronico: "ventilador",
       timestamp: new Date().toISOString(),
-      Kwh: 0.0416,
+      Kwh: 12.3456,
       Valor: 0.034,
       Moeda: "BRL"
     };

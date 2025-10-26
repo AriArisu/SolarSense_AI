@@ -1,11 +1,11 @@
 import axios from "axios";
 import Constants from "expo-constants";
 
-// Fallback para garantir que sempre temos uma URL
+// A URL base já inclui o endpoint /Tomada_1, então não precisamos adicionar na requisição
 const API_URL = Constants.expoConfig?.extra?.API_URL || 
                 "https://tvsnij4zx0.execute-api.sa-east-1.amazonaws.com/Tomada_1";
 
-console.log("API_URL carregada:", API_URL);
+console.log("✅ API_URL configurada:", API_URL);
 
 export const api = axios.create({
   baseURL: API_URL,

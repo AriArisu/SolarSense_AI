@@ -163,6 +163,7 @@ export default function DrawerLayout() {
           drawerType: 'front',
         })}
       >
+
       </Drawer>
     </GestureHandlerRootView>
   );

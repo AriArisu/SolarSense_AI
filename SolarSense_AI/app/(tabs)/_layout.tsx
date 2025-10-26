@@ -1,19 +1,72 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Drawer } from 'expo-router/drawer';
-import { HapticTab } from '@/components/Nao_sei_se_posso_apagar/haptic-tab';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Image, Switch } from 'react-native';
 import type { DrawerContentComponentProps } from '@react-navigation/drawer';
+import { usePathname } from 'expo-router';
+
+const logoImage = require('../../assets/66ccb8a8-0a1a-4674-b231-d666caebc0db.png');
 
 function CustomDrawerContent(props: DrawerContentComponentProps) {
   const colorScheme = useColorScheme();
-  const tintColor = Colors[colorScheme ?? 'light'].tint;
-  const backgroundColor = Colors[colorScheme ?? 'light'].background;
-  const textColor = Colors[colorScheme ?? 'light'].text;
+  const pathname = usePathname();
+  const [notificationsEnabled, setNotificationsEnabled] = useState(false);
+  
+  const tintColor = '#E60013';
+  const backgroundColor = colorScheme === 'dark' ? '#1C1C1E' : '#FFFFFF';
+  const textColor = colorScheme === 'dark' ? '#FFFFFF' : '#000000';
+  const inactiveColor = colorScheme === 'dark' ? '#8E8E93' : '#6B696A';
+
+  // Mapear rotas para nomes corretos
+  const getRouteName = (path: string) => {
+    if (path === '/(tabs)' || path === '/(tabs)/Index') return 'Index';
+    return path.replace('/(tabs)/', '');
+  };
+
+  const currentRoute = getRouteName(pathname);
+
+  const menuItems = [
+    {
+      name: 'Index',
+      label: 'Home',
+      icon: 'house.fill',
+      route: '/(tabs)/Index',
+    },
+    {
+      name: 'Dashbord',
+      label: 'Dashboards',
+      icon: 'chart.bar.fill',
+      route: '/(tabs)/Dashbord',
+    },
+    {
+      name: 'Tomada',
+      label: 'Tomadas Inteligentes',
+      icon: 'bolt.fill',
+      route: '/(tabs)/Tomada',
+    },
+    {
+      name: 'SEMS',
+      label: 'SEMS',
+      icon: 'cpu',
+      route: '/(tabs)/SEMS',
+    },
+    {
+      name: 'config',
+      label: 'Configurações',
+      icon: 'gear',
+      route: '/(tabs)/config',
+    },
+    {
+      name: 'Termos_de_uso',
+      label: 'Termos de Uso',
+      icon: 'doc.text',
+      route: '/(tabs)/Termos_de_uso',
+    },
+  ];
 
   return (
     <DrawerContentScrollView 
@@ -21,136 +74,110 @@ function CustomDrawerContent(props: DrawerContentComponentProps) {
       style={[styles.drawerScrollView, { backgroundColor }]}
       contentContainerStyle={styles.drawerContent}
     >
-      {/* Header com botão fechar */}
-      <View style={[styles.drawerHeader, { backgroundColor: tintColor }]}>
+      {/* Header com logo e botão fechar */}
+      <View style={[styles.drawerHeader, { backgroundColor }]}>
         <View style={styles.headerTop}>
+          <Image 
+            source={logoImage} 
+            style={styles.headerLogo}
+            resizeMode="contain"
+          />
           <TouchableOpacity 
             onPress={() => props.navigation.closeDrawer()}
             style={styles.closeButton}
           >
-            <IconSymbol size={24} name="chevron.right" color="white" />
+            <IconSymbol size={24} name="chevron.right" color={textColor} />
           </TouchableOpacity>
         </View>
-        <Text style={styles.drawerHeaderTitle}>SolarSense AI</Text>
-        <Text style={styles.drawerHeaderSubtitle}>Bem-vindo!</Text>
+        <Text style={[styles.drawerHeaderTitle, { color: textColor }]}>
+          SolarSense AI
+        </Text>
+      </View>
+
+      {/* Notificações Toggle */}
+      <View style={[styles.notificationContainer, { 
+        backgroundColor: colorScheme === 'dark' ? '#2C2C2E' : '#F2F2F7' 
+      }]}>
+        <View style={styles.notificationContent}>
+          <IconSymbol size={24} name="bell" color={textColor} />
+          <Text style={[styles.notificationText, { color: textColor }]}>
+            Notificações
+          </Text>
+        </View>
+        <Switch
+          value={notificationsEnabled}
+          onValueChange={setNotificationsEnabled}
+          trackColor={{ false: '#767577', true: '#FE7457' }}
+          thumbColor={notificationsEnabled ? '#E60013' : '#f4f3f4'}
+          ios_backgroundColor="#3e3e3e"
+        />
       </View>
 
       {/* Menu Items */}
       <View style={styles.drawerSection}>
-        <DrawerItem
-          label="Home"
-          onPress={() => props.navigation.navigate('Index')}
-          icon={({ size }) => (
-            <IconSymbol size={size} name="house.fill" color={tintColor} />
-          )}
-          activeTintColor={tintColor}
-          inactiveTintColor={textColor}
-          activeBackgroundColor={colorScheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.04)'}
-          style={styles.drawerItem}
-          labelStyle={[styles.drawerItemLabel, { color: textColor }]}
-        />
-        
-        <DrawerItem
-          label="Dashboard"
-          onPress={() => props.navigation.navigate('Dashbord')}
-          icon={({ size }) => (
-            <IconSymbol size={size} name="paperplane.fill" color={tintColor} />
-          )}
-          activeTintColor={tintColor}
-          inactiveTintColor={textColor}
-          activeBackgroundColor={colorScheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.04)'}
-          style={styles.drawerItem}
-          labelStyle={[styles.drawerItemLabel, { color: textColor }]}
-        />
-        
-        <DrawerItem
-          label="Tomadas"
-          onPress={() => props.navigation.navigate('Tomada')}
-          icon={({ size }) => (
-            <IconSymbol size={size} name="paperplane.fill" color={tintColor} />
-          )}
-          activeTintColor={tintColor}
-          inactiveTintColor={textColor}
-          activeBackgroundColor={colorScheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.04)'}
-          style={styles.drawerItem}
-          labelStyle={[styles.drawerItemLabel, { color: textColor }]}
-        />
-
-        <DrawerItem
-          label="SEMS"
-          onPress={() => props.navigation.navigate('SEMS')}
-          icon={({ size }) => (
-            <IconSymbol size={size} name="paperplane.fill" color={tintColor} />
-          )}
-          activeTintColor={tintColor}
-          inactiveTintColor={textColor}
-          activeBackgroundColor={colorScheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.04)'}
-          style={styles.drawerItem}
-          labelStyle={[styles.drawerItemLabel, { color: textColor }]}
-        />
-
-        <DrawerItem
-          label="Configurações"
-          onPress={() => props.navigation.navigate('config')}
-          icon={({ size }) => (
-            <IconSymbol size={size} name="chevron.left.forwardslash.chevron.right" color={tintColor} />
-          )}
-          activeTintColor={tintColor}
-          inactiveTintColor={textColor}
-          activeBackgroundColor={colorScheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.04)'}
-          style={styles.drawerItem}
-          labelStyle={[styles.drawerItemLabel, { color: textColor }]}
-        />
-
-        <DrawerItem
-          label="Termos de Uso"
-          onPress={() => props.navigation.navigate('Termos_de_uso')}
-          icon={({ size }) => (
-            <IconSymbol size={size} name="paperplane.fill" color={tintColor} />
-          )}
-          activeTintColor={tintColor}
-          inactiveTintColor={textColor}
-          activeBackgroundColor={colorScheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.04)'}
-          style={styles.drawerItem}
-          labelStyle={[styles.drawerItemLabel, { color: textColor }]}
-        />
-
-        {/* Divisor */}
-        <View style={styles.divider} />
-
-        {/* Itens secundários (escondidos por padrão) */}
-        <DrawerItem
-          label="Agendamento"
-          onPress={() => props.navigation.navigate('Agendamento')}
-          icon={({ size }) => (
-            <IconSymbol size={size} name="paperplane.fill" color={tintColor} />
-          )}
-          activeTintColor={tintColor}
-          inactiveTintColor={textColor}
-          activeBackgroundColor={colorScheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.04)'}
-          style={styles.drawerItem}
-          labelStyle={[styles.drawerItemLabel, { color: textColor }]}
-        />
-
-        <DrawerItem
-          label="Timer"
-          onPress={() => props.navigation.navigate('Timer')}
-          icon={({ size }) => (
-            <IconSymbol size={size} name="paperplane.fill" color={tintColor} />
-          )}
-          activeTintColor={tintColor}
-          inactiveTintColor={textColor}
-          activeBackgroundColor={colorScheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.04)'}
-          style={styles.drawerItem}
-          labelStyle={[styles.drawerItemLabel, { color: textColor }]}
-        />
+        {menuItems.map((item) => {
+          const isActive = currentRoute === item.name;
+          
+          return (
+            <DrawerItem
+              key={item.name}
+              label={item.label}
+              onPress={() => {
+                console.log(`Navegando para: ${item.name}`);
+                props.navigation.navigate(item.name as never);
+              }}
+              icon={({ size }) => (
+                <View style={[
+                  styles.iconContainer,
+                  isActive && styles.iconContainerActive
+                ]}>
+                  <IconSymbol 
+                    size={size} 
+                    name={item.icon as any} 
+                    color={isActive ? '#FFFFFF' : inactiveColor} 
+                  />
+                </View>
+              )}
+              labelStyle={[
+                styles.drawerItemLabel, 
+                { color: isActive ? tintColor : inactiveColor },
+                isActive && styles.drawerItemLabelActive
+              ]}
+              style={[
+                styles.drawerItem,
+                isActive && { backgroundColor: 'transparent' }
+              ]}
+              focused={isActive}
+            />
+          );
+        })}
       </View>
 
-      {/* Footer */}
-      <View style={styles.footer}>
-        <Text style={[styles.footerText, { color: textColor }]}>
-          Versão 1.0.0
-        </Text>
+      {/* Divisor */}
+      <View style={[styles.divider, { 
+        backgroundColor: colorScheme === 'dark' ? '#3A3A3C' : '#E5E5EA' 
+      }]} />
+
+      {/* Seção inferior - Agendamento e Timer */}
+      <View style={styles.bottomSection}>
+        <DrawerItem
+          label="Agendamento"
+          onPress={() => props.navigation.navigate('Agendamento' as never)}
+          icon={({ size }) => (
+            <IconSymbol size={size} name="calendar" color={inactiveColor} />
+          )}
+          labelStyle={[styles.drawerItemLabel, { color: inactiveColor }]}
+          style={styles.drawerItem}
+        />
+        <DrawerItem
+          label="Timer"
+          onPress={() => props.navigation.navigate('Timer' as never)}
+          icon={({ size }) => (
+            <IconSymbol size={size} name="clock" color={inactiveColor} />
+          )}
+          labelStyle={[styles.drawerItemLabel, { color: inactiveColor }]}
+          style={styles.drawerItem}
+        />
       </View>
     </DrawerContentScrollView>
   );
@@ -158,22 +185,27 @@ function CustomDrawerContent(props: DrawerContentComponentProps) {
 
 function HeaderMenuIcon({ navigation }: any) {
   const colorScheme = useColorScheme();
-  const tintColor = Colors[colorScheme ?? 'light'].tint;
+  const iconColor = colorScheme === 'dark' ? '#FFFFFF' : '#000000';
 
   return (
     <TouchableOpacity 
       onPress={() => navigation.toggleDrawer()}
       style={styles.menuButton}
+      activeOpacity={0.7}
     >
-      <IconSymbol size={28} name="chevron.right" color={tintColor} />
+      <View style={styles.hamburgerIcon}>
+        <View style={[styles.hamburgerLine, { backgroundColor: iconColor }]} />
+        <View style={[styles.hamburgerLine, { backgroundColor: iconColor }]} />
+        <View style={[styles.hamburgerLine, { backgroundColor: iconColor }]} />
+      </View>
     </TouchableOpacity>
   );
 }
 
 export default function DrawerLayout() {
   const colorScheme = useColorScheme();
-  const tintColor = Colors[colorScheme ?? 'light'].tint;
-  const backgroundColor = Colors[colorScheme ?? 'light'].background;
+  const backgroundColor = colorScheme === 'dark' ? '#000000' : '#FFFFFF';
+  const textColor = colorScheme === 'dark' ? '#FFFFFF' : '#000000';
 
   return (
     <GestureHandlerRootView style={styles.container}>
@@ -185,19 +217,23 @@ export default function DrawerLayout() {
             backgroundColor: backgroundColor,
             elevation: 0,
             shadowOpacity: 0,
+            borderBottomWidth: 1,
+            borderBottomColor: colorScheme === 'dark' ? '#2C2C2E' : '#E5E5EA',
           },
-          headerTintColor: tintColor,
+          headerTintColor: textColor,
           headerTitleStyle: {
             fontWeight: 'bold',
+            fontSize: 18,
           },
           headerLeft: () => <HeaderMenuIcon navigation={navigation} />,
           drawerStyle: {
             width: 320,
+            backgroundColor: backgroundColor,
           },
-          swipeEdgeWidth: 100,
+          swipeEdgeWidth: 50,
+          drawerType: 'slide',
         })}
       >
-        {/* Todas as telas precisam estar registradas aqui */}
         <Drawer.Screen 
           name="Index" 
           options={{ 
@@ -209,14 +245,14 @@ export default function DrawerLayout() {
           name="Dashbord" 
           options={{ 
             title: 'Dashboard',
-            drawerLabel: 'Dashboard',
+            drawerLabel: 'Dashboards',
           }} 
         />
         <Drawer.Screen 
           name="Tomada" 
           options={{ 
             title: 'Tomadas',
-            drawerLabel: 'Tomadas',
+            drawerLabel: 'Tomadas Inteligentes',
           }} 
         />
         <Drawer.Screen 
@@ -267,6 +303,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 8,
   },
+  hamburgerIcon: {
+    width: 24,
+    height: 20,
+    justifyContent: 'space-between',
+  },
+  hamburgerLine: {
+    width: 24,
+    height: 3,
+    borderRadius: 2,
+  },
   drawerScrollView: {
     flex: 1,
   },
@@ -274,56 +320,77 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   drawerHeader: {
-    padding: 24,
+    padding: 20,
     paddingTop: 60,
-    marginBottom: 20,
   },
   headerTop: {
     flexDirection: 'row',
-    justifyContent: 'flex-end',
-    marginBottom: 20,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  headerLogo: {
+    width: 48,
+    height: 48,
   },
   closeButton: {
     padding: 4,
   },
   drawerHeaderTitle: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: 'bold',
-    color: 'white',
-    marginBottom: 4,
   },
-  drawerHeaderSubtitle: {
+  notificationContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginHorizontal: 16,
+    marginVertical: 12,
+    padding: 12,
+    borderRadius: 12,
+  },
+  notificationContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  notificationText: {
     fontSize: 16,
-    color: 'rgba(255,255,255,0.8)',
+    fontWeight: '600',
   },
   drawerSection: {
-    flex: 1,
-    marginBottom: 24,
+    marginTop: 8,
+    marginBottom: 16,
   },
   drawerItem: {
-    borderRadius: 12,
     marginHorizontal: 8,
-    marginVertical: 4,
+    marginVertical: 2,
+    borderRadius: 12,
+  },
+  iconContainer: {
+    width: 36,
+    height: 36,
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  iconContainerActive: {
+    backgroundColor: '#E60013',
   },
   drawerItemLabel: {
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: '500',
     marginLeft: -8,
+  },
+  drawerItemLabelActive: {
+    fontWeight: '700',
   },
   divider: {
     height: 1,
-    backgroundColor: '#e0e0e0',
-    marginVertical: 10,
+    marginVertical: 8,
     marginHorizontal: 16,
   },
-  footer: {
-    padding: 16,
-    borderTopWidth: 1,
-    borderTopColor: '#e0e0e0',
-    alignItems: 'center',
-  },
-  footerText: {
-    fontSize: 12,
-    opacity: 0.6,
+  bottomSection: {
+    marginTop: 8,
   },
 });
