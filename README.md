@@ -4,13 +4,13 @@
 
 ## 👥 Membros do Projeto
 
-| Nome     | RM       |
-|-----------|----------|
-| Bruna     | 565648   |
-| Sofia     | 563828   |
-| Laryssa   | 563116   |
-| Paloma    | 565571   |
-| Giovanna  | 562018   |
+| Nome     
+|-----------
+| Bruna     
+| Sofia     
+| Laryssa   
+| Paloma    
+| Giovanna  
 
 ---
 
